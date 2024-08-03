@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: api
+  namespace: res-edge
+  labels:
+    app: api
+
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: api
+
+  template:
+    metadata:
+      labels:
+        app: api
+
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: app
+        image: ghcr.io/cse-labs/res-edge-api:0.20
+        imagePullPolicy: Always
+
+        args:
+          - --run-automation
+          - --git-ops-repo
+          - github.com/cse-labs/res-edge-labs
+          - --git-ops-branch
+          - labs
+          - --sleep
+          - "30"
+
+        env:
+          - name: SQL_CONN_STRING
+            valueFrom:
+              secretKeyRef:
+                name: api
+                key: SQL_CONN_STRING
+          - name: GIT_OPS_PAT
+            valueFrom:
+              secretKeyRef:
+                name: api
+                key: GIT_OPS_PAT
+
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+
+        livenessProbe:
+          httpGet:
+            path: /api/healthz
+            port: http
+          initialDelaySeconds: 3
+          failureThreshold: 10
+          periodSeconds: 10
+
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: 1000m

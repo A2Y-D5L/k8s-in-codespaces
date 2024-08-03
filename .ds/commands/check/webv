@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Checking WebV"
+
+kubectl get pods -n res-edge -l app=webv
+
+echo

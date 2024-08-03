@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api
+  namespace: res-edge
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/force-ssl-redirect: "false"
+
+spec:
+  ingressClassName: nginx
+  tls:
+  - secretName: api
+    hosts:
+    - res-edge.com
+  rules:
+  - host: res-edge.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /api
+        backend:
+          service:
+            name: api
+            port:
+              number: 8080

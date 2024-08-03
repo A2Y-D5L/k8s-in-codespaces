@@ -1,0 +1,31 @@
+###
+# check commands
+###
+
+commands:
+- name: check
+  short: Check local apps
+  scriptCommands:
+    - name: res-edge
+      short: Check Res-Edge
+      path: check/res-edge
+
+    - name: ui
+      short: Check Res-Edge UI
+      path: check/ui
+
+    - name: webv
+      short: Check webv
+      path: check/webv
+
+    - name: sql
+      short: Check SQL
+      path: check/sql
+
+    - name: grafana
+      short: Check Grafana
+      path: check/grafana
+
+    - name: prometheus
+      short: Check Prometheus
+      path: check/prometheus

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Checking Prometheus"
+
+http localhost:9090/prom/-/healthy
