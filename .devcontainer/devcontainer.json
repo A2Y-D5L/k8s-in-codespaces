@@ -1,5 +1,5 @@
 {
-	"name": "Res-Edge-Labs",
+	"name": "k8s-in-codespaces",
 	"dockerFile": "Dockerfile",
 
 	// do not change these if you want Docker in Docker support
@@ -37,7 +37,7 @@
 	},
 
 	"hostRequirements": {
-		"cpus": 8
+		"cpus": 4
 	},
 
 	// forward ports for the app
